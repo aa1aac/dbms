@@ -6,7 +6,7 @@
 
 To run the server run the following command:
 
-`docker compose up`
+`docker compose up -d`
 
 To shut-down the dbms server run the following command:
 `docker compose down`
