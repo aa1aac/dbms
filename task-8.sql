@@ -1,7 +1,3 @@
--- Alter the AssignmentType table to change the typeWeight column
-ALTER TABLE AssignmentType
-ALTER COLUMN typeWeight FLOAT;
-
 -- Update typeWeight for all rows
 UPDATE AssignmentType
 SET typeWeight = 
