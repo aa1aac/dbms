@@ -1,4 +1,4 @@
--- Add two points to each student's grade in an assignment
+-- Add 2 points to the score of each student on an assignment;
 UPDATE AssignmentGrade
 SET grade = grade + 2
-WHERE assignmentId = 1;
+WHERE assignmentId = 8;
