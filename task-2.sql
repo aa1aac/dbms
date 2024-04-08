@@ -35,13 +35,13 @@ CREATE TABLE Assignment (
     assignmentName VARCHAR(100),
     assignmentDescription TEXT,
     assignmentPoint FLOAT, -- highest possible point
-    assignmentType VARCHAR(50),
+    assignmentType VARCHAR(2) REFERENCES AssignmentType(assignmentType),
     assignmentWeight FLOAT -- out of 100
 );
 
 CREATE TABLE AssignmentType (
     courseId INTEGER,
-    assignmentType VARCHAR(50),
+    assignmentType VARCHAR(2),
     typeWeight FLOAT,
     FOREIGN KEY (courseId) REFERENCES Course(courseId),
     PRIMARY KEY (courseId, assignmentType)
