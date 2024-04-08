@@ -6,11 +6,11 @@ ALTER COLUMN typeWeight FLOAT;
 UPDATE AssignmentType
 SET typeWeight = 
     CASE
-        WHEN assignmentType = 'H' THEN 25
-        WHEN assignmentType = 'Pr' THEN 25
-        WHEN assignmentType = 'T' THEN 45
-        WHEN assignmentType = 'Pa' THEN 5
+        WHEN courseId = 1 AND assignmentType = 'H' THEN 25.00
+        WHEN courseId = 1 AND assignmentType = 'Pr' THEN 25.00
+        WHEN courseId = 1 AND assignmentType = 'T' THEN 45.00
+        WHEN courseId = 1 AND assignmentType = 'Pa' THEN 5.00
         -- Add additional cases as needed
     END;
 
-SELECT * FROM AssignmentType
+SELECT * FROM AssignmentType;
