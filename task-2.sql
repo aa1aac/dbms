@@ -19,14 +19,14 @@ CREATE TABLE Course (
     courseSemester VARCHAR(2) NOT NULL,
     courseYear VARCHAR(4) NOT NULL,
     PRIMARY KEY (courseId) 
-)
+);
 
 -- Create enrollment table
 CREATE TABLE Enrollment(
     enrollmentId SERIAL NOT NULL,
     studentId INTEGER REFERENCES Student(studentId),
     courseId INTEGER REFERENCES Course(courseId)
-)
+);
 
 -- create assignment
 CREATE TABLE Assignment (
@@ -37,6 +37,14 @@ CREATE TABLE Assignment (
     assignmentPoint FLOAT, -- highest possible point
     assignmentType VARCHAR(50),
     assignmentWeight FLOAT -- out of 100
+);
+
+CREATE TABLE AssignmentType (
+    courseId INTEGER,
+    assignmentType VARCHAR(50),
+    typeWeight FLOAT,
+    FOREIGN KEY (courseId) REFERENCES Course(courseId),
+    PRIMARY KEY (courseId, assignmentType)
 );
 
 -- create assignmentGrade
@@ -64,6 +72,11 @@ VALUES (1, 1);
 INSERT INTO Assignment(courseId, assignmentName, assignmentDescription, assignmentPoint, assignmentType, assignmentWeight)
 VALUES(1, 'Mid term', 'Mid term exam on chapter 1 to 5', 100, 'exam', 30);
 
--- insert into assignmentGrade
+-- Insert into assignmentGrade
 INSERT INTO AssignmentGrade(assignmentId, studentId, grade)
 VALUES(1, 1, 98);
+
+-- Insert into assignmentType
+INSERT INTO AssignmentType(courseId, assignmentType, typeWeight)
+VALUES(1, 'H', 25),
+    (1, 'Pr', 20);

@@ -12,3 +12,6 @@ SELECT * FROM Assignment;
 
 -- display assignment grade table
 SELECT * FROM AssignmentGrade;
+
+-- display assignment type table
+SELECT * FROM AssignmentType;
