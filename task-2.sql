@@ -79,7 +79,7 @@ VALUES(1, 1, 98);
 
 -- Insert into assignmentType
 INSERT INTO AssignmentType(courseId, assignmentType, typeWeight)
-VALUES(1, 'H', 20),
-    (1, 'Pr', 20),
-    (1, 'T', 50),
-    (1, 'Pa', 10);
+VALUES(1, 'H', 20.00),
+    (1, 'Pr', 20.00),
+    (1, 'T', 50.00),
+    (1, 'Pa', 10.00);
