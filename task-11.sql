@@ -12,6 +12,8 @@ JOIN
     Assignment assignment ON assignmentGrade.assignmentId = assignment.assignmentId
 JOIN
     AssignmentType assignmentType ON assignment.courseId = assignmentType.courseId AND assignment.assignmentType = assignmentType.assignmentType
+WHERE 
+    student.studentId = 1
 GROUP BY
     student.studentId,
     student.studentFirstName,
