@@ -79,13 +79,16 @@ VALUES
 INSERT INTO Enrollment(studentId, courseId)
 VALUES 
     (1, 1),
-    (1, 2),
     (1, 3),
-    (1, 4),
     (2, 1),
+    (2, 3),
     (3, 1),
-    (4,1),
-    (5,1);
+    (3, 2),
+    (3, 3), 
+    (4, 1),
+    (4, 3),
+    (5, 1),
+    (5, 2);
 
 -- Insert into assignmentType
 INSERT INTO AssignmentType(courseId, assignmentType, typeWeight)
