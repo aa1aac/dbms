@@ -6,10 +6,19 @@
 
 To run the server run the following command:
 
-`docker compose up -d`
+<pre>
+  <code> 
+    docker compose up -d
+  </code>
+</pre>
 
 To shut-down the dbms server run the following command:
-`docker compose down`
+
+<pre>
+  <code> 
+    docker compose down
+  </code>
+</pre>
 
 ### Running the query
 
