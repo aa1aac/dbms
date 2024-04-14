@@ -4,7 +4,7 @@
 
 **Note: you need to have docker installed to setup the database server this way**
 
-To run the server run the following command:
+<p>To run the server run the following command:</p>
 
 <pre>
   <code> 
@@ -12,7 +12,7 @@ To run the server run the following command:
   </code>
 </pre>
 
-To shut-down the dbms server run the following command:
+<p>To shut-down the dbms server run the following command:</p>
 
 <pre>
   <code> 
