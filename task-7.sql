@@ -1,3 +1,3 @@
 -- Add an assignment to a course;
 INSERT INTO Assignment(courseId, assignmentName, assignmentDescription, assignmentPoint, assignmentType)
-VALUES(2, 'Final Exam', 'Final Exam', 100, 'Te');
+VALUES(3, 'Homework on Chapter 10', 'Extra credit assignment', 100, 'HW');
