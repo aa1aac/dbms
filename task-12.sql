@@ -1,42 +1,45 @@
-WITH RankedGrades AS (
+WITH LowestGrade AS (
+    SELECT 
+        studentId, 
+        courseId, 
+        assignmentType, 
+        MIN(grade) AS minGrade, -- Using MIN() to aggregate the grade
+        typeWeight,
+        assignmentPoint
+    FROM AssignmentGrade
+    JOIN Student USING(studentId)
+    JOIN Assignment USING(assignmentId)
+    JOIN AssignmentType USING(courseId, assignmentType)
+    WHERE assignmentType = 'Te' AND studentId = 1
+    GROUP BY studentId, courseId, assignmentType, typeWeight, assignmentPoint
+),
+
+CurrentGrade AS (
     SELECT
-        ag.studentId,
-        a.courseId,
-        at.assignmentType,
-        ag.grade,
-        COUNT(*) OVER (PARTITION BY ag.studentId, a.courseId, at.assignmentType) AS numAssignments,
-        ROW_NUMBER() OVER (PARTITION BY ag.studentId, a.courseId, at.assignmentType ORDER BY ag.grade ASC) AS rank
+    student.studentId,
+    student.studentFirstName,
+    student.studentLastName,
+    assignment.courseId,
+    ROUND(SUM(assignmentGrade.grade / assignment.assignmentPoint * assignmentType.typeWeight)::numeric, 2) AS obtainedGrade,
+    ROUND(SUM(assignmentType.typeWeight)::numeric, 2) AS totalGrade,
+    ROUND((SUM(assignmentGrade.grade / assignment.assignmentPoint * assignmentType.typeWeight) / SUM(assignmentType.typeWeight) * 100)::numeric, 2) AS finalGrade
     FROM
-        AssignmentGrade ag
+        Student student
     JOIN
-        Assignment a ON ag.assignmentId = a.assignmentId
+        AssignmentGrade assignmentGrade ON student.studentId = assignmentGrade.studentId
     JOIN
-        AssignmentType at ON a.courseId = at.courseId AND a.assignmentType = at.assignmentType
+        Assignment assignment ON assignmentGrade.assignmentId = assignment.assignmentId
+    JOIN
+        AssignmentType assignmentType ON assignment.courseId = assignmentType.courseId AND assignment.assignmentType = assignmentType.assignmentType
+    WHERE 
+        student.studentId = 1
+    GROUP BY
+        student.studentId,
+        student.studentFirstName,
+        student.studentLastName,
+        assignment.courseId
 )
-SELECT
-    s.studentId,
-    s.studentFirstName,
-    s.studentLastName,
-    rg.courseId,
-    SUM(
-        CASE
-            WHEN rg.numAssignments = 1 THEN rg.grade / a.assignmentPoint * at.typeWeight
-            WHEN rg.rank > 1 THEN rg.grade / a.assignmentPoint * at.typeWeight / (rg.numAssignments - 1)
-            ELSE 0
-        END
-    ) AS overallGrade
-FROM
-    Student s
-JOIN
-    RankedGrades rg ON s.studentId = rg.studentId
-JOIN
-    Assignment a ON rg.courseId = a.courseId
-JOIN
-    AssignmentType at ON a.courseId = at.courseId AND a.assignmentType = at.assignmentType
-WHERE 
-    s.studentId = 1
-GROUP BY
-    s.studentId,
-    s.studentFirstName,
-    s.studentLastName,
-    rg.courseId;
+
+SELECT studentid, studentFirstName, studentLastName, courseId, (obtainedGrade - minGrade*typeWeight/assignmentPoint) AS finalObtainedDropped, ROUND((totalGrade - assignmentPoint*typeWeight/100)::numeric, 2) AS fullPointDropped, ROUND(((obtainedGrade - minGrade*typeWeight/assignmentPoint)/(totalGrade - assignmentPoint*typeWeight/100) * 100)::numeric, 2) AS finalGradeDropped
+FROM LowestGrade
+JOIN CurrentGrade USING(courseId, studentId);
