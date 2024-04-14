@@ -3,7 +3,9 @@ SELECT
     student.studentFirstName,
     student.studentLastName,
     assignment.courseId,
-    SUM(assignmentGrade.grade / assignment.assignmentPoint * assignmentType.typeWeight) AS overallGrade
+    ROUND(SUM(assignmentGrade.grade / assignment.assignmentPoint * assignmentType.typeWeight)::numeric, 2) AS obtainedGrade,
+    ROUND(SUM(assignmentType.typeWeight)::numeric, 2) AS totalGrade,
+    ROUND((SUM(assignmentGrade.grade / assignment.assignmentPoint * assignmentType.typeWeight) / SUM(assignmentType.typeWeight) * 100)::numeric, 2) AS finalGrade
 FROM
     Student student
 JOIN
