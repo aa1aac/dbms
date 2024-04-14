@@ -52,6 +52,6 @@ Here's a step-by-step instructions guide to complile and execute the SQL queries
     Make sure that the port specified in the .dockerfile is the same as the one in your PopSQL connection.
   </li>
   <li>
-    Start writing your queries.
+    Start writing your queries OR Copy the queries from this repo in the order of task numbers to see the respective results.
   </li>
 </ul>
